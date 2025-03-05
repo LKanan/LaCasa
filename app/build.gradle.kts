@@ -71,4 +71,7 @@ dependencies {
     implementation(libs.androidx.room)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
+
+    // Ajoutez la dépendance jbcrypt
+    implementation ("org.mindrot:jbcrypt:0.4")
 }

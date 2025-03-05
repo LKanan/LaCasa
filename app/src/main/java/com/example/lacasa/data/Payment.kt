@@ -1,3 +1,3 @@
 package com.example.lacasa.data
 
-data class Payment()
+//data class Payment()
