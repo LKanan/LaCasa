@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.devtools)
 }
 
 android {
@@ -56,5 +57,18 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
     implementation("androidx.compose.ui:ui-text-google-fonts:1.5.0") // Utilisez la version la plus récente
+
+//    viewModel | Navigation
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.navigation)
+
+//    Splash screen
+    implementation ("androidx.core:core-splashscreen:1.0.0")
+
+    //room | ksp |BDD
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
 }
