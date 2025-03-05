@@ -1,3 +1,3 @@
 package com.example.lacasa.data
 
-data class Building()
+//data class Building()

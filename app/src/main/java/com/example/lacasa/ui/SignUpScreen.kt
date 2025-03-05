@@ -1,5 +1,7 @@
 package com.example.lacasa.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,16 +23,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.lacasa.data.User
+import com.example.lacasa.data.UserRepository
+import com.example.lacasa.viewModel.UserViewModel
+import com.example.lacasa.viewModel.UserViewModelFactory
+import com.example.todolist.model.LaCasaDataBase
+import org.mindrot.jbcrypt.BCrypt
+import java.time.LocalDate
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun signUpScreen() {
+fun signUpScreen(navController: NavController) {
     // États pour les champs de formulaire
     var prenom by remember { mutableStateOf("") }
     var nom by remember { mutableStateOf("") }
@@ -44,6 +57,12 @@ fun signUpScreen() {
     var emailError by remember { mutableStateOf(false) }
     var motDePasseError by remember { mutableStateOf(false) }
     var confirmerMotDePasseError by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val database = remember { LaCasaDataBase.getDatabase(context) }
+    val repository = remember { UserRepository(database.userDao()) }
+    val viewModel: UserViewModel = viewModel(factory = UserViewModelFactory(repository))
+
 
     // Fonction de validation
     fun validateForm(): Boolean {
@@ -189,8 +208,15 @@ fun signUpScreen() {
             Button(
                 onClick = {
                     if (validateForm()) {
-                        // Logique d'inscription (à implémenter)
-                        println("Inscription réussie !")
+                        val password = hashPassword(motDePasse)
+                        viewModel.addUser(
+                            prenom,
+                            nom,
+                            email,
+                            password,
+                            LocalDate.now()
+                        )
+                        navController.navigate("loginScreen")
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -199,5 +225,8 @@ fun signUpScreen() {
             }
         }
     }
+}
 
+fun hashPassword(password: String): String {
+    return BCrypt.hashpw(password, BCrypt.gensalt())
 }
