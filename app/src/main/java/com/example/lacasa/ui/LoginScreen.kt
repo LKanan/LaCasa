@@ -131,8 +131,6 @@ fun LoginScreen(navController: NavController) {
                                 println("hey")
                             } else {
                                 errorMessage = message
-                                println("hello")
-                                Log.d("MyButton", "Le bouton a été appuyé !")
                             }
                         }
                     }

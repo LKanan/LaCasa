@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.lacasa.ui.LoginScreen
+import com.example.lacasa.ui.buildingGeneralDetailsScreen
+import com.example.lacasa.ui.buildingScreen
 import com.example.lacasa.ui.homeScreen
 import com.example.lacasa.ui.mainScreen
 import com.example.lacasa.ui.signUpScreen
@@ -15,23 +17,26 @@ import com.example.lacasa.ui.signUpScreen
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "homeScreen") {
+    NavHost(navController = navController, startDestination = "buildingScreen") {
         composable("homeScreen") {
             homeScreen(navController)
         }
-        composable("loginScreen"){
+        composable("loginScreen") {
             LoginScreen(navController)
         }
-        composable("signUpScreen"){
+        composable("signUpScreen") {
             signUpScreen(navController)
         }
-        composable("mainScreen"){
+        composable("mainScreen") {
             mainScreen(navController)
         }
-//        composable("task_detail/{taskId}"){
-//                backStackEntry ->
-//            val taskId = backStackEntry.arguments?.getString("taskId")?.toIntOrNull()
-//            taskId?.let{TaskDetailScreen(navController, taskId)}
-//        }
+        composable("buildingScreen") {
+            buildingScreen(navController)
+        }
+        composable("buildingGeneralDetailsScreen/{building}"){
+                backStackEntry ->
+            val buildingId = backStackEntry.arguments?.getString("building")?.toIntOrNull()
+            buildingId?.let{buildingGeneralDetailsScreen(navController=navController, buildingId=buildingId)}
+        }
+        }
     }
-}

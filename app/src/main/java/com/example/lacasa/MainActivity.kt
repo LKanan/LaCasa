@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
             LaCasaTheme {
-                buildingScreen()
+                Navigation()
             }
         }
     }
@@ -34,7 +34,7 @@ fun LaCasaApp(navController: NavController) {
 @Composable
 fun LaCasaAppPreviewDark() {
     LaCasaTheme(darkTheme = true) {
-        buildingScreen()
+        Navigation()
     }
 }
 
@@ -42,6 +42,6 @@ fun LaCasaAppPreviewDark() {
 @Composable
 fun LaCasaAppPreviewWhite() {
     LaCasaTheme {
-        buildingScreen()
+        Navigation()
     }
 }
