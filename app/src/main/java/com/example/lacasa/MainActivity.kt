@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.compose.LaCasaTheme
+import com.example.lacasa.ui.buildingScreen
 import com.example.lacasa.ui.mainScreen
 import com.example.lacasa.ui.navigation.Navigation
 import com.example.lacasa.ui.signUpScreen
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
             LaCasaTheme {
-                Navigation()
+                buildingScreen()
             }
         }
     }
@@ -33,7 +34,7 @@ fun LaCasaApp(navController: NavController) {
 @Composable
 fun LaCasaAppPreviewDark() {
     LaCasaTheme(darkTheme = true) {
-        Navigation()
+        buildingScreen()
     }
 }
 
@@ -41,6 +42,6 @@ fun LaCasaAppPreviewDark() {
 @Composable
 fun LaCasaAppPreviewWhite() {
     LaCasaTheme {
-        Navigation()
+        buildingScreen()
     }
 }

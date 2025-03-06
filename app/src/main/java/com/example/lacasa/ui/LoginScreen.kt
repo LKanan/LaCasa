@@ -73,6 +73,14 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.padding(bottom = 24.dp)
             )
 
+            if (errorMessage != null) {
+                Text(
+                    text = errorMessage!!, // Affiche le message d'erreur
+                    color = MaterialTheme.colorScheme.error,
+                    fontSize = 12.sp,
+                    modifier = Modifier.align(Alignment.Start)
+                )
+            }
             // Champ pour l'adresse e-mail
             OutlinedTextField(
                 value = email,
