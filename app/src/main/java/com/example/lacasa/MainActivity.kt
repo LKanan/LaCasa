@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.compose.LaCasaTheme
 import com.example.lacasa.ui.mainScreen
 import com.example.lacasa.ui.navigation.Navigation
@@ -27,8 +28,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun LaCasaApp() {
-    mainScreen()
+fun LaCasaApp(navController: NavController) {
+    mainScreen(navController)
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

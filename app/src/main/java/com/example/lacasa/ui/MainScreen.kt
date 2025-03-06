@@ -27,11 +27,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.lacasa.R
 
 //Ecran principal pour la visualisation des batiments et leurs informations generales
 @Composable
-fun mainScreen() {
+fun mainScreen(navController: NavController) {
     val menuList = listOf("locataires", "imobiliers", "paiements")
     var menuSelected by rememberSaveable {
         mutableStateOf(menuList[1])

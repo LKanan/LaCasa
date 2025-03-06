@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.lacasa.ui.LoginScreen
 import com.example.lacasa.ui.homeScreen
+import com.example.lacasa.ui.mainScreen
 import com.example.lacasa.ui.signUpScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -22,7 +23,10 @@ fun Navigation() {
             LoginScreen(navController)
         }
         composable("signUpScreen"){
-            signUpScreen()
+            signUpScreen(navController)
+        }
+        composable("mainScreen"){
+            mainScreen(navController)
         }
 //        composable("task_detail/{taskId}"){
 //                backStackEntry ->
