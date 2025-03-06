@@ -45,7 +45,7 @@ fun mainScreen() {
         "building1" to R.drawable.building1, // Remplacez par vos drawables
         "building2" to R.drawable.building2,
         "building3" to R.drawable.building3,
-        "building4" to R.drawable.building4
+        "building4" to R.drawable.building4,
     )
     @OptIn(ExperimentalMaterial3Api::class)
     Scaffold(

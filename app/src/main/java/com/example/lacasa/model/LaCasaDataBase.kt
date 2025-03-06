@@ -5,9 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.lacasa.data.Building
-import com.example.lacasa.data.Payment
-import com.example.lacasa.data.Tenant
 import com.example.lacasa.data.User
 import com.example.lacasa.model.BuildingDao
 import com.example.lacasa.model.PaymentDao
