@@ -12,10 +12,10 @@ interface TenantDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTenant(tenant: Tenant)
 
-    @Query("SELECT * FROM tenants")
+    @Query("SELECT * FROM tenant")
     suspend fun getAllTenants(): List<Tenant>
 
-    @Query("SELECT * FROM tenants WHERE id = :tenantId")
+    @Query("SELECT * FROM tenant WHERE id = :tenantId")
     suspend fun getTenantById(tenantId: Int): Tenant?
 
     @Delete

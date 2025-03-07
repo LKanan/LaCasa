@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.lacasa.ui.LoginScreen
+import com.example.lacasa.ui.TenantScreen
 import com.example.lacasa.ui.homeScreen
 import com.example.lacasa.ui.mainScreen
 import com.example.lacasa.ui.signUpScreen
@@ -15,23 +16,23 @@ import com.example.lacasa.ui.signUpScreen
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "homeScreen") {
+    val tenantScreen = TenantScreen() // Création d'une instance de TenantScreen
+
+    NavHost(navController = navController, startDestination = "tenantScreen") {
         composable("homeScreen") {
             homeScreen(navController)
         }
-        composable("loginScreen"){
+        composable("loginScreen") {
             LoginScreen(navController)
         }
-        composable("signUpScreen"){
+        composable("signUpScreen") {
             signUpScreen(navController)
         }
-        composable("mainScreen"){
+        composable("mainScreen") {
             mainScreen(navController)
         }
-//        composable("task_detail/{taskId}"){
-//                backStackEntry ->
-//            val taskId = backStackEntry.arguments?.getString("taskId")?.toIntOrNull()
-//            taskId?.let{TaskDetailScreen(navController, taskId)}
-//        }
+        composable("tenantScreen") {
+            tenantScreen.TenantScreenUI(navController) // Appel correct de TenantScreenUI avec navController
+        }
     }
 }

@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -42,6 +43,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
 class TenantScreen {
+    // Classe représentant un locataire avec ses informations de base
     data class Locataire(
         val id: Int = 0,
         val nom: String,
@@ -50,24 +52,29 @@ class TenantScreen {
         val dateEntree: String
     )
 
+    // ViewModel pour la gestion des locataires (ajout, modification, suppression, recherche)
     class TenantViewModel : ViewModel() {
         private val _locataires = MutableStateFlow<List<Locataire>>(emptyList())
         val locataires: StateFlow<List<Locataire>> = _locataires.asStateFlow()
 
+        // Ajoute un nouveau locataire à la liste
         fun ajouterLocataire(locataire: Locataire) {
             _locataires.update { currentList -> currentList + locataire.copy(id = currentList.size + 1) }
         }
 
+        // Modifie un locataire existant en remplaçant les anciennes valeurs par les nouvelles
         fun modifierLocataire(locataireModifie: Locataire) {
             _locataires.update { list ->
                 list.map { if (it.id == locataireModifie.id) locataireModifie else it }
             }
         }
 
+        // Supprime un locataire de la liste
         fun supprimerLocataire(locataire: Locataire) {
             _locataires.update { list -> list.filter { it.id != locataire.id } }
         }
 
+        // Recherche des locataires selon le nom ou l'appartement
         fun rechercherLocataires(query: String): StateFlow<List<Locataire>> {
             return locataires.map { list ->
                 list.filter {
@@ -77,9 +84,9 @@ class TenantScreen {
         }
     }
 
-
+    // Interface utilisateur principale de l'écran des locataires
     @Composable
-    fun TenantScreenUI(viewModel: TenantViewModel = remember { TenantViewModel() }) {
+    fun TenantScreenUI(navController: NavController? = null, viewModel: TenantViewModel = remember { TenantViewModel() }) {
         var searchQuery by remember { mutableStateOf("") }
         val locataires by viewModel.rechercherLocataires(searchQuery).collectAsState()
         var locataireSelectionne by remember { mutableStateOf<Locataire?>(null) }
@@ -116,6 +123,7 @@ class TenantScreen {
             }
         }
 
+        // Affichage du formulaire d'ajout de locataire
         if (isAdding) {
             DialogForm("Ajouter un Locataire", onConfirm = {
                 viewModel.ajouterLocataire(it)
@@ -123,6 +131,7 @@ class TenantScreen {
             }, onDismiss = { isAdding = false })
         }
 
+        // Affichage du formulaire de modification de locataire existant
         if (isEditing && locataireSelectionne != null) {
             DialogForm("Modifier un Locataire", locataireSelectionne, onConfirm = {
                 viewModel.modifierLocataire(it)
@@ -135,6 +144,7 @@ class TenantScreen {
         }
     }
 
+    // Composable affichant un locataire sous forme de carte avec options de modification et suppression
     @Composable
     fun LocataireItem(locataire: Locataire, onDelete: () -> Unit, onEdit: () -> Unit) {
         Card(
@@ -161,6 +171,7 @@ class TenantScreen {
         }
     }
 
+    // Formulaire d'ajout et de modification de locataire sous forme de dialogue
     @Composable
     fun DialogForm(title: String, locataire: Locataire? = null, onConfirm: (Locataire) -> Unit, onDismiss: () -> Unit) {
         var nom by remember { mutableStateOf(locataire?.nom ?: "") }
