@@ -74,4 +74,5 @@ dependencies {
 
     // Ajoutez la dépendance jbcrypt
     implementation ("org.mindrot:jbcrypt:0.4")
+
 }
